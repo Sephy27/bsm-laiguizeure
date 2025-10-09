@@ -1,0 +1,41 @@
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid navbar">
+                <a class="navbar-brand" href="{{ path('app_home') }}">
+                    <img src="/images/marco02.png" alt="logo Marco l'aiguiseur" width="150" height="130">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="{{ path('app_contact') }}">Nous contacter</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_noustrouver') }}">Galerie</a>
+                        </li>
+                        
+                    </ul>
+                    
+                    <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <div class="hero-scene text-center text-white">
+    <div class="hero-scene-content">
+        <p>Bienvenue chez</p>
+        <h1>BSM L'Aiguiz'Eure</h1><br>
+        <a href="{{ path('app_contact') }}" class="btn btn-primary">Contactez-nous</a>
+    </div>
+</div>
+
+
+    

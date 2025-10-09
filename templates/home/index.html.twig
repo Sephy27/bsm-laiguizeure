@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BSM L'Aiguiz'Eure{% endblock %}
+
+
+{% block body %}
+<main>
+    
+<section class="content">
+
+<div class="container-fluid">
+
+    <article>
+        <div class="container-fluid"> 
+            <div class="presentation">
+                <img class="img-thumbnail mx-auto d-block"  src="images/marco11.jpg">
+                <h2>🛠️ Prestations artisanales polyvalentes</h3>
+                
+                <p>Fort d’une expérience dans l’entretien, la réparation et l’aménagement, je vous propose une large gamme de services :</p>
+                <dl>
+                    <dt>🔹 Affûtage</dt>
+                        <dd>Affûtage et rénovation de vos coupants :</dd>
+                        <dd>- Couteaux pro, ciseaux couture et coiffure</dd> 
+						<dd>- Outil de jardin lame de tondeuse, sécateur, taille haie</dd>
+
+                    <dt>🔹 Plomberie & serrurerie</dt>
+                        <dd>Dépannages courants</dd>
+                        <dd>Reproduction de clés et clés à gorge</dd>
+
+                    <dt>🔹 Sécurité</dt>
+                        <dd>Aménagement organe de sécurité : pose garde corps, rambarde, antidérapant,etc.</dd>
+                        
+
+                    <dt>🔹 Menuiserie & ameublement</dt>
+
+                        <dd>Montage et démontage de meubles</dd>
+
+                        <dd>Pose d’étagères et de tringles à rideaux</dd>
+
+                        <dd>Relooking et peinture sur meubles</dd>
+
+                    <dt>🔹 Rénovation & finition</dt>
+
+                        <dd>Application d’enduit</dd>
+
+                        <dd>Rebouchage de trous et petites réparations murales</dd>
+
+                        <dd>Remplacement de carreaux au mastic (extérieur)</dd>
+
+                    <dt>🔹 Meubles et objets anciens </dt>
+
+                        <dd>Réparation de mobilier ancien (tables, chaises, etc.)</dd>
+
+                        <dd>Rénovation, sablage, peinture ou teinture</dd>
+
+                        <dd>Rénovation cuivre</dd>
+
+                    <dt>🔹 Aménagements extérieurs</dt>
+
+                        <dd>Rénovation, décapage, ponçage, peinture ou teinture sur volet, porte, porte de garage, portillon, portail</dd>
+
+                        <dd>Fabrication de petites vérandas et pergolas</dd>
+
+                    <dt>🔹 Métallerie & ferronnerie</dt>
+
+                        <dd>Soudure</dd>
+
+                        <dd>Serrure</dd>
+
+                        <dd>Réparation de portails</dd>
+
+                        <dd>Travaux de ferronnerie sur mesure</dd>
+                </dl>
+
+                <p>✅ Travail soigné – Solutions adaptées – Interventions rapides</p>
+            </div>
+        </div>
+    </article>
+    
+    <h2>Nos Services</h2>
+    <div class="services">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/entretien2.jpg" class="card-img-top"  alt="...">
+                    <div class="card-body">
+                        <h3>Entretien</h3>
+                        <p class="card-text">Des solutions adaptées pour garder vos installations en parfait état.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/reparation1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3>Réparations</h3>
+                        <p>Un service rapide et efficace pour remettre vos installations en parfait état.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/entretien1.jpg" class="card-img-top"  alt="...">
+                    <div class="card-body">
+                        <h3>Sécurité</h3>
+                        <p>Solutions et conseils pour aménager votre maison.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/reprod.jpg" class="card-img-top"  alt="...">
+                    <div class="card-body">
+                        <h3>Reproduction de clé</h3>
+                        <p>Vos clés reproduitent avec précision et fiabilité.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/affûtage.jpg" class="card-img-top"  alt="...">
+                    <div class="card-body">
+                        <h3>Affûtage</h3>
+                        <p>Redonnez une nouvelle vie à vos outils et coupants grâce à un affutâge professionnel.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/bricolage.jpg" class="card-img-top"  alt="...">
+                    <div class="card-body">
+                        <h3>Bricolage</h3>
+                        <p>Tous vos petits travaux du quotidien réalisés avec soin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="demande">
+        <h2 class="text center">Demandez votre devis</h2>
+        <p>Demandez votre devis gratuit dès aujourd’hui — rapide, clair et sans engagement.</p>
+        <a href="{{ path('app_contact') }}" class="btn btn-primary">Contactez-nous</a>
+
+        
+    </div>
+</div>
+
+</section>
+</main>
+
+{% endblock %}

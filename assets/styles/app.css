@@ -11980,6 +11980,7 @@ textarea.form-control-lg {
   }
 }
 html {
+  display: flex;
   position: relative;
   min-height: 100vh;
   margin: 0;
@@ -12087,7 +12088,9 @@ section h2, section .h2 {
 }
 
 .contacter {
-  width: 500px;
+  display: flex;
+  width: 100%;
+  max-width: 400px;
   height: auto;
   margin-top: 50px;
   margin-bottom: 50px;

@@ -1,0 +1,38 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}Bonjour Admin{% endblock %}
+
+{% block body %}
+
+    
+<div class="container">
+    <a class="btn btn-sm bg-primary text-light mt-5" href="{{ path('app_admin_contacts_add') }}">Ajouter un contact</a>
+    
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th style="width: 200px">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for contact in contact %}
+     <tr>
+         <td>
+            <a href="{{ path('app_admin_contacts_show', {id: contact.id}) }}">{{ contact.email }}</a>
+        </td>
+        <td>
+            <div class="d-flex gap-1">
+                <a class="btn btn-success btn-sm" href="{{ path('app_admin_contacts_edit', {id: contact.id}) }}">Editer</a>
+                <form action="{{ path('app_admin_contacts_delete', {id: contact.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger btn">Supprimer</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endblock %}

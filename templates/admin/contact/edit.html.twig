@@ -1,0 +1,13 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'contact : ' ~ contact.subject %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ contact.subject }}</h1>
+
+    <img src="{{ vich_uploader_asset(contact, 'featuredImageFile') }}" alt="">
+
+    {{ form(addForm) }}
+</div>    
+{% endblock %}

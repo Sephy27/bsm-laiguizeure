@@ -71,7 +71,7 @@ class ContactFormType extends AbstractType
                 ],
                 'constraints' => [
                     new Assert\Image([
-                        'maxSize' => '5M',
+                        'maxSize' => '8M',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
@@ -94,6 +94,7 @@ class ContactFormType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
+             
             
         ;
     }

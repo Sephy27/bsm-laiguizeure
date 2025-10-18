@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block body %}
+<article>
+
+
+<div class="container text-center my-4">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for galerie in galerie %}
+      <div class="col">
+        <div class="card shadow-sm border-0 overflow-hidden">
+          <img
+            src="{{ asset('images/uploads/') ~ galerie.featuredImage  }}"
+            class="card-img-top zoom-thumb"
+            alt="{{ galerie.name }}"
+            data-zoom-src="{{ asset('images/uploads/') ~ galerie.featuredImage }}"
+          >
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<dialog id="zoomDlg" class="zoom-dialog" tabindex="-1" aria-label="Agrandissement de l’image">
+  <button type="button"
+          class="btn btn-danger btn-lg position-absolute top-0 end-0 m-2"
+          aria-label="Fermer"
+          data-zoom-close>
+    &times;
+  </button>
+  <img id="zoomImg" alt="" class="img-fluid rounded shadow">
+</dialog>
+
+</article>
+{% endblock %}

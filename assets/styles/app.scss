@@ -242,3 +242,38 @@ dd{
         height: 150px;
     }
 }
+
+/* Effet hover léger façon Bootstrap */
+.zoom-thumb{
+  cursor: zoom-in;
+  transition: transform .25s ease, filter .25s ease;
+}
+.zoom-thumb:hover{
+  transform: scale(1.02);
+  filter: brightness(.95);
+}
+
+/* Dialog plein écran, style Bootstrap-friendly */
+.zoom-dialog{
+  border: none;
+  padding: 0;
+  background: transparent;
+  position: fixed; /* pour s'assurer du plein écran */
+  inset: 0;
+}
+.zoom-dialog::backdrop{
+  background: rgba(0,0,0,.85);
+}
+.zoom-dialog img{
+  max-width: 90vw;
+  max-height: 90vh;
+  display: block;
+  margin: auto;
+}
+
+/* Bouton de fermeture au-dessus de l’image */
+.zoom-dialog > .btn{
+  z-index: 1;
+}
+
+

@@ -6,9 +6,12 @@ use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
+
+
 #[Vich\Uploadable()]
 class Contact
 {
@@ -38,12 +41,14 @@ class Contact
     private ?string $featuredImage = null;
 
     #[Vich\UploadableField(mapping: 'uploads', fileNameProperty: 'featuredImage')]
-    #[Assert\Image(minWidth: 200, maxWidth: 4000, minHeight: 200, maxHeight: 4000)]
+    #[Assert\Image(minWidth: 200, maxWidth: 6000, minHeight: 200, maxHeight: 6000)]
     private ?File $featuredImageFile = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt;
+
+
 
     public function __construct()
     {
@@ -147,4 +152,5 @@ class Contact
         return $this;
     }
 
+  
 }

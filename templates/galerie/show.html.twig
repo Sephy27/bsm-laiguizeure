@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title "galerie : " ~ galerie.name %}
+
+{% block body %}
+<div class="container">
+<h1>{{ galerie.name }}</h1>
+
+
+        
+<img class="img-fluid" src="{{ vich_uploader_asset(galerie, 'featuredImageFile')  }}" alt="photo de l'envoyant">
+   
+</div>
+{% endblock %}

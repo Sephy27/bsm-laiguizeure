@@ -11,9 +11,11 @@ use Symfony\Component\Routing\Attribute\Route;
 final class GalerieController extends AbstractController
 {
     #[Route('/galerie', name: 'app_galerie')]
-    public function index(GalerieRepository $repository): Response
+    public function index(GalerieRepository $repository, Request $request): Response
     {
         $galerie = $repository->findAll();
+        /* $page = $request->query->get('page',1);
+        $galerie = $repository->getAllPaginated($page, 2); */
 
         return $this->render('galerie/index.html.twig', [
             'galerie' => $galerie

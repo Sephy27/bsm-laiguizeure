@@ -21,6 +21,12 @@
       </div>
     {% endfor %}
   </div>
+  {# {% if data.pages > 1 %}
+    {{ include('partials/_pagination.html.twig', {
+      currentPage: data.current,
+      maxPage: data.pages,
+      path: 'app_galerie_index'}) }}
+  {% endif %} #}
 </div>
 
 <dialog id="zoomDlg" class="zoom-dialog" tabindex="-1" aria-label="Agrandissement de l’image">

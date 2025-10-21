@@ -18,43 +18,20 @@ use Symfony\UX\Chartjs\Model\Chart;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
-    public function __construct(
-        private ChartBuilderInterface $chartBuilder,
-    ) {
-    }
+    
 
     public function index(): Response
     {
         
       return $this->render('admin/dashboard/index.html.twig', [
-        'chart' => $this->createChart()
+        'controller_name' => 'DashboardController'
       ]);
       
     }
 
-    private function createChart(): Chart {
-         $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-        $chart->setData([
-            'labels' => ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            'datasets' => [
-                [
-                    'label' => 'My First dataset',
-                    'backgroundColor' => 'rgb(0, 0, 0)',
-                    'borderColor' => 'rgb(0, 0, 0)',
-                    'data' => [0, 10, 5, 2, 20, 30, 45],
-                ],
-            ],
-        ]);
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => 0,
-                    'suggestedMax' => 100,
-                ],
-            ],
-        ]);
-        return $chart;
-    }
+    
+        
+    
 
     public function configureDashboard(): Dashboard
     {

@@ -1,109 +1,199 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mentions Légales{% endblock %}
+{% block title %}Mentions légales & CGU - BSM L'Aiguiz'Eure{% endblock %}
 
 {% block body %}
+<main class="content">
+    <div class="container">
 
-<div class="container info">
-    <h1 class="text-center p-5">Mentions légales</h1>
-    <div class="mention">
-    
-        <h2>BSM L'Aiguiz'Eure</h2>
-        <p></p>
-        <p>389 715 400 R.C.S. Evreux</p>
-        <p>Code APE 3311Z</p>
-        
-        <p>Siège social : 30 rue de Pacy - 27600 GAILLON</p><br>
+        {# En-tête de page #}
+        <header class="mb-4 text-center">
+            <span class="text-uppercase text-muted small d-inline-flex align-items-center gap-2 mb-2">
+                <i class="bi bi-file-text"></i>
+                Informations légales du site
+            </span>
+            <h1 class="h3 fw-bold mb-2">
+                Mentions légales & Conditions Générales d’Utilisation
+            </h1>
+            <p class="text-muted small mb-0">
+                Cette page présente les informations obligatoires relatives à l’éditeur du site,
+                à son hébergeur et aux règles d’utilisation du site bsm-laiguizeure.fr.
+            </p>
+        </header>
+
+        {# Sommaire rapide #}
+        <section class="mb-4">
+            <div class="bg-white rounded-3 p-3 p-md-3 shadow-sm">
+                <p class="small text-muted mb-2">
+                    <i class="bi bi-list-ul me-1 text-primary"></i>
+                    Accès rapide :
+                </p>
+                <div class="d-flex flex-wrap gap-2 small">
+                    <a href="#mentions-legales" class="btn btn-outline-secondary btn-sm">
+                        Mentions légales
+                    </a>
+                    <a href="#hebergeur" class="btn btn-outline-secondary btn-sm">
+                        Hébergeur du site
+                    </a>
+                    <a href="#cgu" class="btn btn-outline-secondary btn-sm">
+                        Conditions Générales d’Utilisation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="row g-4">
+
+            {# Colonne gauche : Mentions + Hébergeur #}
+            <div class="col-12 col-lg-4">
+                <section id="mentions-legales" class="mb-4">
+                    <div class="bg-white rounded-3 p-3 p-md-4 shadow-sm h-100">
+                        <h2 class="h5 fw-bold mb-3">
+                            <i class="bi bi-building me-1 text-primary"></i>
+                            Mentions légales
+                        </h2>
+
+                        <p class="mb-1 fw-semibold">Éditeur du site</p>
+                        <p class="mb-2">
+                            <strong>BSM L'Aiguiz'Eure</strong><br>
+                            389 715 400 R.C.S. Evreux<br>
+                            Code APE&nbsp;: 3311Z
+                        </p>
+
+                        <p class="mb-3">
+                            <span class="fw-semibold">Siège social&nbsp;:</span><br>
+                            30 rue de Pacy<br>
+                            27600 Gaillon – France
+                        </p>
+
+                        <p class="mb-0 small text-muted">
+                            Site internet&nbsp;: <a href="https://bsm-laiguizeure.fr" target="_blank">bsm-laiguizeure.fr</a>
+                        </p>
+                    </div>
+                </section>
+
+                <section id="hebergeur">
+                    <div class="bg-white rounded-3 p-3 p-md-4 shadow-sm h-100">
+                        <h2 class="h5 fw-bold mb-3">
+                            <i class="bi bi-hdd-network me-1 text-primary"></i>
+                            Hébergeur du site
+                        </h2>
+
+                        <p class="mb-2">
+                            Le présent site web est hébergé par&nbsp;:
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>O2switch</strong><br>
+                            Chemin des Pardiaux<br>
+                            63000 Clermont-Ferrand<br><br>
+                            RCS Clermont Ferrand<br>
+                            Siret : 510 909 807 00032<br>
+                            SAS au capital de 100 000€
+                        </p>
+
+                        <p class="mb-0 small text-muted">
+                            Tél.&nbsp;: +33 (0)4 44 44 60 40<br>
+                            Site&nbsp;: <a href="https://www.o2switch.fr/" target="_blank">o2switch.fr</a>
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            {# Colonne droite : CGU #}
+            <div class="col-12 col-lg-8">
+                <section id="cgu" class="bg-white rounded-3 p-3 p-md-4 shadow-sm">
+                    <h2 class="h5 fw-bold mb-3">
+                        <i class="bi bi-journal-text me-1 text-primary"></i>
+                        Conditions Générales d’Utilisation (CGU)
+                    </h2>
+
+                    <p class="small text-muted mb-3">
+                        Dernière mise à jour : {{ "now"|date('d/m/Y') }}
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Préambule</h3>
+                    <p class="mb-3">
+                        Les présentes Conditions Générales d'Utilisation (ci-après «&nbsp;CGU&nbsp;») régissent
+                        l'accès et l'utilisation du site <strong>BSM L'Aiguiz'Eure</strong>, édité par
+                        BSM L'Aiguiz'Eure, dont le siège social est situé 30 rue de Pacy, 27600 Gaillon.
+                        L'utilisateur reconnaît avoir pris connaissance des CGU et s'engage à les respecter.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 1 – Définitions</h3>
+                    <p class="mb-2">
+                        <strong>Site&nbsp;:</strong> désigne le site internet accessible à l'adresse
+                        <a href="https://bsm-laiguizeure.fr" target="_blank">https://bsm-laiguizeure.fr</a>.<br>
+                        <strong>Utilisateur&nbsp;:</strong> toute personne accédant et naviguant sur le Site, à quelque titre que ce soit.<br>
+                        <strong>Contenu&nbsp;:</strong> désigne l'ensemble des éléments présents sur le Site (textes, images, vidéos, logos, etc.).
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 2 – Objet</h3>
+                    <p class="mb-3">
+                        Les présentes CGU ont pour objet de définir les conditions dans lesquelles les utilisateurs
+                        peuvent accéder au Site et l'utiliser. En accédant au Site, l'utilisateur accepte sans réserve
+                        les présentes CGU.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 3 – Accès au site</h3>
+                    <p class="mb-3">
+                        L'accès au Site est ouvert à tout utilisateur disposant d'une connexion Internet.
+                        Le Site est accessible gratuitement, hors coûts de connexion et d'abonnement à Internet.
+                        Certaines sections du site peuvent toutefois être réservées aux utilisateurs enregistrés.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 4 – Propriété intellectuelle</h3>
+                    <p class="mb-3">
+                        Le contenu du Site (textes, images, logos, etc.) est protégé par les lois en vigueur
+                        relatives à la propriété intellectuelle et aux droits d'auteur. Toute reproduction,
+                        représentation, modification ou adaptation, totale ou partielle du contenu, sans autorisation
+                        écrite préalable de BSM L'Aiguiz'Eure, est interdite et constitue une contrefaçon.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 5 – Données personnelles</h3>
+                    <p class="mb-3">
+                        Le Site peut recueillir des données personnelles telles que le nom, l'adresse e-mail, etc.
+                        Conformément à la réglementation en vigueur (RGPD), l'utilisateur dispose d'un droit d'accès,
+                        de rectification et de suppression de ses données personnelles.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 6 – Responsabilité</h3>
+                    <p class="mb-3">
+                        L'utilisation du Site se fait sous la seule responsabilité de l'utilisateur.
+                        BSM L'Aiguiz'Eure ne saurait être tenu responsable de tout dommage direct ou indirect,
+                        y compris pertes de données ou de profit, résultant de l'accès ou de l'utilisation du Site.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 7 – Liens hypertextes</h3>
+                    <p class="mb-3">
+                        Le Site peut contenir des liens vers d'autres sites internet.
+                        BSM L'Aiguiz'Eure n'exerce aucun contrôle sur le contenu de ces sites et ne saurait être tenu
+                        responsable de leur disponibilité ou de leur contenu.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 8 – Modification des CGU</h3>
+                    <p class="mb-3">
+                        BSM L'Aiguiz'Eure se réserve le droit de modifier à tout moment les présentes CGU.
+                        Les utilisateurs sont invités à les consulter régulièrement. Les modifications prennent effet
+                        à compter de leur publication sur le Site.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 9 – Loi applicable</h3>
+                    <p class="mb-3">
+                        Les présentes CGU sont régies par la loi française.
+                        En cas de litige, et après tentative de résolution amiable, les tribunaux d’Evreux seront compétents.
+                    </p>
+
+                    <h3 class="h6 fw-bold mt-3">Article 10 – Contact</h3>
+                    <p class="mb-0">
+                        Pour toute question relative aux présentes CGU ou aux mentions légales, vous pouvez contacter
+                        BSM L'Aiguiz'Eure à l'adresse suivante&nbsp;:
+                        <a href="mailto:laiguizeure.bsm27@gmail.com">laiguizeure.bsm27@gmail.com</a>.
+                    </p>
+                </section>
+            </div>
+        </div>
+
     </div>
-    <div class="hebergement">
-        <h2>Hébergeur</h2>
-        <p>Le présent site web est hébergé par :<br>
-
-OVH <br>
-Siège social : 2 rue Kellermann – 59100 Roubaix, France <br>
-Tél. +33 (0)8 99 70 17 61</p>
-    </div>
-    <div class="cgu">
-        <h2 class="text-center p-5">Conditions Générales d'Utilisation</h2>
-        <p>Préambule<br>
-
-Les présentes Conditions Générales d'Utilisation (ci-après "CGU") régissent l'accès et l'utilisation du site BSM L'Aiguiz'Eure,
- édité par BSM L'Aiguiz'Eure, dont le siège social est situé 30 rue de Pacy 27600 GAILLON. 
- L'utilisateur reconnaît avoir pris connaissance des CGU et s'engage à les respecter.<br><br>
-
-Article 1 – Définitions<br>
-
-Site : désigne le site internet accessible à l'adresse [URL du site].<br>
-Utilisateur : toute personne accédant et naviguant sur le Site, à quelque titre que ce soit.<br>
-Contenu : désigne l'ensemble des éléments présents sur le Site (textes, images, vidéos, logos, etc.).<br><br>
-
- 
-
-Article 2 – Objet<br>
-
-Les présentes CGU ont pour objet de définir les conditions dans lesquelles les utilisateurs peuvent accéder au Site et l'utiliser. 
-En accédant au Site, l'utilisateur accepte sans réserve les présentes CGU.<br><br>
-
- 
-
-Article 3 – Accès au site<br>
-
-L'accès au Site est ouvert à tout utilisateur disposant d'une connexion Internet. 
-Le site est accessible gratuitement, hors coûts de connexion et d'abonnement à Internet. 
-Certaines sections du site peuvent toutefois être réservées aux utilisateurs enregistrés.<br><br>
-
- 
-
-Article 4 – Propriété intellectuelle<br>
-
-Le contenu du site (textes, images, logos, etc.) est protégé par les lois en vigueur relatives à la propriété intellectuelle et aux droits d'auteur. 
-Toute reproduction, représentation, modification, ou adaptation, totale ou partielle du contenu, sans l'autorisation écrite préalable de BSM L'Aiguiz'Eure, 
-est interdite et constitue une contrefaçon.<br><br>
-
- 
-
-Article 5 – Données personnelles<br>
-
-Le site peut recueillir des données personnelles telles que le nom, l'adresse e-mail, etc. 
-Conformément à la réglementation en vigueur (RGPD), l'utilisateur dispose d'un droit d'accès, de rectification et de suppression de ses données personnelles. 
-<br><br>
-
- 
-
-Article 6 – Responsabilité<br>
-
-L'utilisation du Site se fait sous la seule responsabilité de l'utilisateur. 
-BSM L'Aiguiz'Eure ne saurait être tenu responsable de tout dommage direct ou indirect, y compris pertes de données ou de profit, 
-résultant de l'accès ou de l'utilisation du Site.<br><br>
-
- 
-
-Article 7 – Liens hypertextes<br>
-
-Le site peut contenir des liens vers d'autres sites internet. 
-BSM L'Aiguiz'Eure n'exerce aucun contrôle sur le contenu de ces sites et ne saurait être tenu responsable de leur disponibilité ou de leur contenu.<br><br>
-
- 
-
-Article 8 – Modification des CGU<br>
-
-BSM L'Aiguiz'Eure se réserve le droit de modifier à tout moment les présentes CGU. 
-Les utilisateurs sont invités à les consulter régulièrement. Les modifications prennent effet à compter de leur publication sur le Site.<br><br>
-
- 
-
-Article 9 – Loi applicable<br>
-
-Les présentes CGU sont régies par la loi française. 
-En cas de litige, et après tentative de résolution amiable, les tribunaux d'Evreux seront compétents.<br><br>
-
- 
-
-Article 10 – Contact<br>
-
-Pour toute question relative aux présentes CGU, vous pouvez contacter BSM L'Aiguiz'Eure à l'adresse suivante : laiguizeure.bsm27@gmail.com.</p>
-
-    </div>
-    
-</div>
+</main>
 {% endblock %}

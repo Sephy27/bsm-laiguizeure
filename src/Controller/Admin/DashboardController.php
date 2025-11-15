@@ -117,7 +117,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('<img src="/images/marcologo04.png" width="140">')
+            ->setTitle('<img src="/images/marcologo03.png" width="140">')
             ->setFaviconPath('favicon.svg')
             ->renderContentMaximized()
             ->setTranslationDomain('admin');

@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Webmozart\Assert\Assert as AssertAssert;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ContactFormType extends AbstractType
 {
@@ -21,81 +21,79 @@ class ContactFormType extends AbstractType
     {
         $builder
             ->add('fullName', TextType::class, [
+                'label' => 'Nom et prénom',
                 'attr' => [
-                    'class' => 'form-control',
-                    'minlenght' => '2',
-                    'maxlenght' => '50',
+                    'placeholder' => 'Votre nom et prénom',
+                    'minlength'   => 2,
+                    'maxlength'   => 100,
                 ],
-                'label' => 'Nom / Prenom',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ]
+                'row_attr' => ['class' => 'mb-3'],
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'Merci d’indiquer vos nom et prénom.']),
+                    new Assert\Length(['min' => 2, 'max' => 100]),
+                ],
             ])
+
             ->add('email', EmailType::class, [
+                'label' => 'Adresse e-mail',
                 'attr' => [
-                    'class' => 'form-control',
-                    'minlenght' => '2',
-                    'maxlenght' => '180',
+                    'placeholder' => 'nom@exemple.fr',
                 ],
-                'label' => 'Adresse email',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
+                'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Email(),
-                    
-
-                ]
+                    new Assert\NotBlank(['message' => 'Merci d’indiquer votre adresse e-mail.']),
+                    new Assert\Email(['message' => 'Merci de saisir une adresse e-mail valide.']),
+                ],
             ])
+
             ->add('subject', TextType::class, [
+                'label' => 'Objet de votre demande',
                 'attr' => [
-                    'class' => 'form-control',
-                    'minlenght' => '2',
-                    'maxlenght' => '100',
+                    'placeholder' => 'Affûtage de couteaux, rénovation de volets, dépannage...',
+                    'minlength'   => 2,
+                    'maxlength'   => 150,
                 ],
-                'label' => 'Object',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
+                'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    
-
-                ]
+                    new Assert\NotBlank(['message' => 'Merci d’indiquer l’objet de votre demande.']),
+                    new Assert\Length(['min' => 2, 'max' => 150]),
+                ],
             ])
 
-            ->add('featuredImageFile', FileType::class,[
-                'label' => 'Joindre une image',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
+            // 👇 ADAPTE ICI LE NOM DU CHAMP SELON TON ENTITÉ (featuredImageFile…)
+            ->add('featuredImageFile', VichImageType::class, [
+                'label'         => 'Joindre une photo (optionnel)',
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri'  => false,
+                'image_uri'     => false,
+                'row_attr'      => ['class' => 'mb-3'],
+                'attr'          => [
+                    'class'       => 'form-control',
                 ],
-                'constraints' => [
+                'constraints'   => [
                     new Assert\Image([
                         'maxSize' => '8M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image au format JPEG ou PNG.'
-                    ])
-                ]
+                        'maxSizeMessage' => 'L’image ne peut pas dépasser {{ limit }}.',
+                    ]),
+                ],
             ])
 
             ->add('message', TextareaType::class, [
+                'label' => 'Votre message',
                 'attr' => [
-                    'class' => 'form-control',
-
+                    'rows'        => 6,
+                    'placeholder' => 'Expliquez votre besoin, le type de travaux souhaité, vos disponibilités...',
                 ],
-                'label' => 'Votre Message',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
+                'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    new Assert\NotBlank()
-                ]
+                    new Assert\NotBlank(['message' => 'Merci de décrire votre demande.']),
+                    new Assert\Length([
+                        'min' => 10,
+                        'minMessage' => 'Votre message doit contenir au moins {{ limit }} caractères.',
+                    ]),
+                ],
             ])
-             
-            
         ;
     }
 

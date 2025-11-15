@@ -1,160 +1,417 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BSM L'Aiguiz'Eure{% endblock %}
-
+{% block title %}BSM L'Aiguiz'Eure - Artisan polyvalent{% endblock %}
 
 {% block body %}
 <main>
-    
-<section class="content">
 
-<div class="container-fluid">
-
-    <article>
-        <div class="container-fluid"> 
-            <div class="presentation">
-                <img class="img-thumbnail mx-auto d-block"  src="images/marco11.jpg">
-                <h2>🛠️ Prestations artisanales polyvalentes</h3>
-                
-                <p>Fort d’une expérience dans l’entretien, la réparation et l’aménagement, je vous propose une large gamme de services :</p>
-                <dl>
-                    <dt>🔹 Affûtage</dt>
-                        <dd>Affûtage et rénovation de vos coupants :</dd>
-                        <dd>- Couteaux pro, ciseaux couture et coiffure</dd> 
-						<dd>- Outil de jardin lame de tondeuse, sécateur, taille haie</dd>
-
-                    <dt>🔹 Plomberie & serrurerie</dt>
-                        <dd>Dépannages courants</dd>
-                        <dd>Reproduction de clés et clés à gorge</dd>
-
-                    <dt>🔹 Sécurité</dt>
-                        <dd>Aménagement organe de sécurité : pose garde corps, rambarde, antidérapant,etc.</dd>
-                        
-
-                    <dt>🔹 Menuiserie & ameublement</dt>
-
-                        <dd>Montage et démontage de meubles</dd>
-
-                        <dd>Pose d’étagères et de tringles à rideaux</dd>
-
-                        <dd>Relooking et peinture sur meubles</dd>
-
-                    <dt>🔹 Rénovation & finition</dt>
-
-                        <dd>Application d’enduit</dd>
-
-                        <dd>Rebouchage de trous et petites réparations murales</dd>
-
-                        <dd>Remplacement de carreaux au mastic (extérieur)</dd>
-
-                    <dt>🔹 Meubles et objets anciens </dt>
-
-                        <dd>Réparation de mobilier ancien (tables, chaises, etc.)</dd>
-
-                        <dd>Rénovation, sablage, peinture ou teinture</dd>
-
-                        <dd>Rénovation cuivre</dd>
-
-                    <dt>🔹 Aménagements extérieurs</dt>
-
-                        <dd>Rénovation, décapage, ponçage, peinture ou teinture sur volet, porte, porte de garage, portillon, portail</dd>
-
-                        <dd>Fabrication de petites vérandas et pergolas</dd>
-
-                    <dt>🔹 Métallerie & ferronnerie</dt>
-
-                        <dd>Soudure</dd>
-
-                        <dd>Serrure</dd>
-
-                        <dd>Réparation de portails</dd>
-
-                        <dd>Travaux de ferronnerie sur mesure</dd>
-                </dl>
-
-                <p>✅ Travail soigné – Solutions adaptées – Interventions rapides</p>
+    {# HERO AVEC BANDEAU #}
+    <section class="hero-scene mb-0">
+        <div class="hero-scene-content text-center text-white">
+            <p class="text-uppercase small mb-2">
+                <i class="bi bi-tools me-1"></i> Artisan polyvalent – Affûtage • Réparation • Aménagement
+            </p>
+            <h1 class="display-6 fw-bold mb-3">
+                BSM L'Aiguiz'Eure<br>
+                <span class="fw-light">Votre partenaire travaux du quotidien</span>
+            </h1>
+            <p class="lead mb-4">
+                Un interlocuteur unique pour entretenir, réparer et améliorer votre habitat, vos outils
+                et vos aménagements intérieurs comme extérieurs.
+            </p>
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                <a href="{{ path('app_contact') }}" class="btn btn-primary btn-lg">
+                    Demander un devis gratuit
+                </a>
+                <a href="{{ path('app_galerie') }}" class="btn btn-outline-light btn-lg">
+                    Découvrir les réalisations
+                </a>
             </div>
         </div>
-    </article>
+    </section>
 
-    <div class="demande">
-        <h2 class="text center">Découvrez mes réalisations en images !</h2>
-        <p>Parcourez la galerie photo pour voir concrètement la qualité de mon travail : rénovations, aménagements, restaurations et créations sur mesure.
-            Chaque image témoigne du soin apporté à chaque détail et du savoir-faire artisanal mis en œuvre.</p>
-        <a href="{{ path('app_galerie') }}" class="btn btn-primary">Galerie</a>  
-    </div>
-    
-    <h2>Nos Services</h2>
-    <div class="services">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/images/entretien2.jpg" class="card-img-top"  alt="...">
-                    <div class="card-body">
-                        <h3>Entretien</h3>
-                        <p class="card-text">Des solutions adaptées pour garder vos installations en parfait état.</p>
+    <section class="content">
+        <div class="container">
+
+            {# 1. BLOC INTRO : ARTISAN LOCAL + 3 ATOUTS #}
+            <section class="home-intro my-5">
+                <div class="row g-4">
+
+                    {# Zone d’intervention (version light premium) #}
+                    <div class="col-12 col-lg-6">
+                        <div class="intervention-zone premium h-100 p-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="intervention-icon d-flex justify-content-center align-items-center">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </div>
+                                <div>
+                                    <span class="small text-white-50 text-uppercase">Artisan local</span>
+                                    <h2 class="h6 text-white mb-0">
+                                        Gaillon (27600) – 20 km autour
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <p class="small text-white-50 mb-3">
+                                Interventions rapides et soignées autour de Gaillon pour vos travaux d’entretien,
+                                de dépannage et de rénovation.
+                            </p>
+
+                            <div class="intervention-cities small">
+                                <span class="city-pill"><i class="bi bi-geo-alt me-1"></i>Vernon</span>
+                                <span class="city-pill"><i class="bi bi-geo-alt me-1"></i>Les Andelys</span>
+                                <span class="city-pill"><i class="bi bi-geo-alt me-1"></i>Val-de-Reuil</span>
+                                <span class="city-pill"><i class="bi bi-geo-alt me-1"></i>Pont-de-l’Arche</span>
+                                <span class="city-pill"><i class="bi bi-geo-alt me-1"></i>Val d’Hazey</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {# 3 atouts clés #}
+                    <div class="col-12 col-lg-6">
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <div class="mini-feature p-3 h-100">
+                                    <h3 class="h6 mb-1">
+                                        <i class="bi bi-award-fill text-primary me-1"></i>
+                                        Savoir-faire polyvalent
+                                    </h3>
+                                    <p class="small mb-0">
+                                        Affûtage, réparations, menuiserie, entretien… un seul interlocuteur
+                                        pour tous vos petits travaux.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="mini-feature p-3 h-100">
+                                    <h3 class="h6 mb-1">
+                                        <i class="bi bi-lightning-charge-fill text-primary me-1"></i>
+                                        Réactivité
+                                    </h3>
+                                    <p class="small mb-0">
+                                        Contact rapide, devis clair et interventions planifiées selon vos disponibilités.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="mini-feature p-3 h-100">
+                                    <h3 class="h6 mb-1">
+                                        <i class="bi bi-shield-check text-primary me-1"></i>
+                                        Travail soigné
+                                    </h3>
+                                    <p class="small mb-0">
+                                        Finitions propres, conseils pratiques et lieux laissés en ordre.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            {# 2. DOMAINES D’INTERVENTION #}
+            <section class="mb-5">
+                <h2 class="h3 text-center mb-4">Mes domaines d’intervention</h2>
+                <div class="row g-4">
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="h5 mb-2">
+                                    <i class="bi bi-scissors me-1 text-primary"></i>
+                                    Affûtage & entretien
+                                </h3>
+                                <p class="small mb-2">
+                                    Redonner du tranchant et de la précision à vos outils.
+                                </p>
+                                <ul class="small mb-0">
+                                    <li>Couteaux pro & de cuisine</li>
+                                    <li>Ciseaux couture / coiffure</li>
+                                    <li>Outils de jardin (lames, sécateurs…)</li>
+                                    <li>Rénovation d’outils anciens</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="h5 mb-2">
+                                    <i class="bi bi-key me-1 text-primary"></i>
+                                    Plomberie & serrurerie
+                                </h3>
+                                <p class="small mb-2">
+                                    Sécuriser et dépanner votre habitat au quotidien.
+                                </p>
+                                <ul class="small mb-0">
+                                    <li>Dépannages courants</li>
+                                    <li>Reproduction de clés & clés à gorge</li>
+                                    <li>Réglage / remplacement de serrures</li>
+                                    <li>Petits travaux de plomberie</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="h5 mb-2">
+                                    <i class="bi bi-hammer me-1 text-primary"></i>
+                                    Menuiserie & ameublement
+                                </h3>
+                                <p class="small mb-2">
+                                    Aménager et optimiser vos espaces intérieurs.
+                                </p>
+                                <ul class="small mb-0">
+                                    <li>Montage / démontage de meubles</li>
+                                    <li>Pose d’étagères & tringles</li>
+                                    <li>Relooking et peinture de meubles</li>
+                                    <li>Petits agencements sur mesure</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-xl-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="h5 mb-2">
+                                    <i class="bi bi-building-gear me-1 text-primary"></i>
+                                    Rénovation & extérieur
+                                </h3>
+                                <p class="small mb-2">
+                                    Protéger et embellir vos façades et accès.
+                                </p>
+                                <ul class="small mb-0">
+                                    <li>Volets, portes, portails, portillons</li>
+                                    <li>Décapage, ponçage, peinture, teinture</li>
+                                    <li>Petites pergolas & vérandas</li>
+                                    <li>Ferronnerie & soudure sur mesure</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/images/reparation1.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h3>Réparations</h3>
-                        <p>Un service rapide et efficace pour remettre vos installations en parfait état.</p>
+            </section>
+
+            {# 3. PROCESS / TIMELINE #}
+            <section class="process-timeline mb-5">
+                <h2 class="h3 text-center mb-4">
+                    <i class="bi bi-graph-up-arrow me-1 text-primary"></i>
+                    Une démarche simple et professionnelle
+                </h2>
+
+                <ol class="timeline list-unstyled mb-0">
+                    <li class="timeline-item d-flex">
+                        <div class="timeline-step me-3">
+                            <span>1</span>
+                        </div>
+                        <div>
+                            <h3 class="h6 mb-1">Prise de contact</h3>
+                            <p class="small mb-0">
+                                Vous décrivez votre besoin (message, appel, photos) et nous faisons un premier point
+                                sur votre projet ou votre urgence.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="timeline-item d-flex">
+                        <div class="timeline-step me-3">
+                            <span>2</span>
+                        </div>
+                        <div>
+                            <h3 class="h6 mb-1">Devis clair et personnalisé</h3>
+                            <p class="small mb-0">
+                                Vous recevez un devis détaillé, avec des explications simples, des tarifs transparents
+                                et un planning d’intervention.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="timeline-item d-flex">
+                        <div class="timeline-step me-3">
+                            <span>3</span>
+                        </div>
+                        <div>
+                            <h3 class="h6 mb-1">Intervention sur place</h3>
+                            <p class="small mb-0">
+                                Les travaux sont réalisés à la date convenue, avec le matériel adapté, dans le respect
+                                de votre habitat et de vos contraintes.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="timeline-item d-flex">
+                        <div class="timeline-step me-3">
+                            <span>4</span>
+                        </div>
+                        <div>
+                            <h3 class="h6 mb-1">Contrôle & finitions</h3>
+                            <p class="small mb-0">
+                                Vérifications finales, finitions soignées, conseils d’entretien et lieu laissé propre
+                                après intervention.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            {# 4. GALERIE #}
+            <section class="cta-block cta-gallery my-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-12 col-md-8">
+                        <h2 class="h3 mb-2">
+                            <i class="bi bi-images me-2 text-primary"></i>
+                            Découvrez des exemples de réalisations
+                        </h2>
+                        <p class="mb-3">
+                            Avant / après, rénovations, aménagements, restaurations d’objets et de mobilier… 
+                            parcourez la galerie pour vous faire une idée concrète du niveau de finition et 
+                            du soin apporté à chaque projet.
+                        </p>
+                        <ul class="list-unstyled small mb-0">
+                            <li class="mb-1">
+                                <i class="bi bi-check2-circle text-primary me-1"></i>
+                                Travaux intérieurs & extérieurs
+                            </li>
+                            <li class="mb-1">
+                                <i class="bi bi-check2-circle text-primary me-1"></i>
+                                Rénovation de volets, portes, portails, meubles
+                            </li>
+                            <li class="mb-1">
+                                <i class="bi bi-check2-circle text-primary me-1"></i>
+                                Affûtage & entretien d’outils
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-4 text-md-end text-center">
+                        <div class="d-inline-flex flex-column align-items-center align-items-md-end gap-2">
+                            <span class="text-muted small">Un aperçu de mon travail en images</span>
+                            <a href="{{ path('app_galerie') }}" class="btn btn-outline-primary btn-lg">
+                                Voir la galerie
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/images/entretien1.jpg" class="card-img-top"  alt="...">
-                    <div class="card-body">
-                        <h3>Sécurité</h3>
-                        <p>Solutions et conseils pour aménager votre maison.</p>
+            </section>
+
+            {# 5. SERVICES PHARES #}
+            <section class="services my-5">
+                <h2 class="h3 text-center mb-4">Services phares</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/images/entretien2.jpg" class="card-img-top" alt="Service d’entretien">
+                            <div class="card-body">
+                                <h3 class="h5">Entretien</h3>
+                                <p class="card-text">
+                                    Des solutions adaptées pour garder vos installations en bon état dans la durée.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/images/reparation1.jpg" class="card-img-top" alt="Travaux de réparation">
+                            <div class="card-body">
+                                <h3 class="h5">Réparations</h3>
+                                <p class="card-text">
+                                    Interventions rapides et efficaces pour remettre vos équipements en service.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/images/entretien1.jpg" class="card-img-top" alt="Aménagements pour la sécurité">
+                            <div class="card-body">
+                                <h3 class="h5">Sécurité</h3>
+                                <p class="card-text">
+                                    Solutions et conseils pour sécuriser et aménager votre maison.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/images/reprod.jpg" class="card-img-top" alt="Reproduction de clés">
+                            <div class="card-body">
+                                <h3 class="h5">Reproduction de clés</h3>
+                                <p class="card-text">
+                                    Vos clés reproduites avec précision et fiabilité.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/images/affûtage.jpg" class="card-img-top" alt="Affûtage d’outils et de coupants">
+                            <div class="card-body">
+                                <h3 class="h5">Affûtage</h3>
+                                <p class="card-text">
+                                    Redonnez une nouvelle vie à vos outils grâce à un affûtage professionnel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="/images/bricolage.jpg" class="card-img-top" alt="Petits travaux de bricolage">
+                            <div class="card-body">
+                                <h3 class="h5">Bricolage</h3>
+                                <p class="card-text">
+                                    Tous vos petits travaux du quotidien réalisés avec soin.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/images/reprod.jpg" class="card-img-top"  alt="...">
-                    <div class="card-body">
-                        <h3>Reproduction de clé</h3>
-                        <p>Vos clés reproduitent avec précision et fiabilité.</p>
+            </section>
+
+            {# 6. CTA FINAL #}
+            <section class="cta-block cta-contact mb-4">
+                <div class="row align-items-center g-4">
+                    <div class="col-12 col-lg-8">
+                        <h2 class="h3 mb-2 text-white">
+                            Besoin d’un artisan polyvalent&nbsp;?
+                        </h2>
+                        <p class="mb-3 text-white-50">
+                            Décrivez votre projet, vos contraintes et, si possible, joignez quelques photos. 
+                            Je vous réponds avec un devis gratuit, clair et sans engagement.
+                        </p>
+                        <ul class="list-unstyled text-white-50 small mb-0">
+                            <li class="mb-1">
+                                <i class="bi bi-arrow-right-circle me-1 text-white"></i>
+                                Petits travaux, dépannages, rénovations et aménagements
+                            </li>
+                            <li class="mb-1">
+                                <i class="bi bi-arrow-right-circle me-1 text-white"></i>
+                                Conseils avant intervention et explications simples
+                            </li>
+                            <li class="mb-1">
+                                <i class="bi bi-arrow-right-circle me-1 text-white"></i>
+                                Devis détaillé avant tout engagement
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-lg-4 text-lg-end text-center">
+                        <a href="{{ path('app_contact') }}" class="btn btn-light btn-lg mb-2">
+                            Demander un devis
+                        </a>
+                        <p class="small mb-0 text-white-50">
+                            Réponse rapide après votre demande.
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/images/affûtage.jpg" class="card-img-top"  alt="...">
-                    <div class="card-body">
-                        <h3>Affûtage</h3>
-                        <p>Redonnez une nouvelle vie à vos outils et coupants grâce à un affutâge professionnel.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <img src="/images/bricolage.jpg" class="card-img-top"  alt="...">
-                    <div class="card-body">
-                        <h3>Bricolage</h3>
-                        <p>Tous vos petits travaux du quotidien réalisés avec soin.</p>
-                    </div>
-                </div>
-            </div>
+            </section>
+
         </div>
-    </div>
+    </section>
 
-    <div class="demande">
-        <h2 class="text center">Demandez votre devis</h2>
-        <p>Demandez votre devis gratuit dès aujourd’hui — rapide, clair et sans engagement.</p>
-        <a href="{{ path('app_contact') }}" class="btn btn-primary">Contactez-nous</a>  
-    </div>
-
-    
-
-</div>
-
-</section>
 </main>
-
 {% endblock %}

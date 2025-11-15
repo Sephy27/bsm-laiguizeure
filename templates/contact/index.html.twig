@@ -1,23 +1,125 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} 
 
-{% block title %}Nous contacter{% endblock %}
+{% block title %}Nous contacter - BSM L'Aiguiz'Eure{% endblock %}
 
 {% block body %}
-
-<div class="container contacter">
-        
-    <h4 class="text-center">Nous contacter</h4>
-        
-        {{ form_start(contact) }}
-        {{ form_rest(contact) }}
-        <div class="container">   
-                <button type="submit" class="btn btn-primary btnContact">Envoyer</button>
-        </div>           
-        {{ form_end(contact) }}
-
+<main>
+    <section class="content contact-page">
+        <div class="container">
             
-        
+            {# En-tête léger #}
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 col-lg-8 text-center">
+                    <p class="text-uppercase text-muted small fw-semibold mb-1">
+                        Contact & devis
+                    </p>
+                    <h1 class="h3 mb-2">Nous contacter</h1>
+                    <p class="text-muted mb-0 small">
+                        Décrivez votre besoin, joignez éventuellement une photo, et je reviens vers vous 
+                        avec une réponse claire et un devis adapté.
+                    </p>
+                </div>
+            </div>
+
+            {# Bloc principal : carte formulaire premium centrée #}
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-lg-7">
+                    <div class="contact-card premium-shell">
+
+                        <div class="premium-header d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <span class="text-uppercase small text-muted d-block">Demande de contact</span>
+                                <h2 class="h5 mb-0">Formulaire de contact</h2>
+                            </div>
+                            <span class="badge bg-soft-primary text-primary">
+                                <i class="bi bi-patch-check-fill me-1"></i> Devis gratuit
+                            </span>
+                        </div>
+
+                        <p class="small text-muted mb-3">
+                            Basé à <strong>Gaillon (27600)</strong>, j’interviens dans un rayon d’environ 
+                            <strong>20 km</strong> pour vos petits travaux, dépannages et projets de rénovation.
+                        </p>
+
+                        {{ form_start(contact, {'attr': {'class': 'contact-form'}}) }}
+
+<div class="row g-3">
+
+    <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small mb-1">Nom & prénom</label>
+        <div class="field-with-icon">
+            <i class="bi bi-person-fill field-icon"></i>
+            {{ form_widget(contact.fullName, {
+                'attr': { 'class': 'form-control premium-input', 'placeholder': 'Votre nom complet' }
+            }) }}
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <label class="form-label fw-semibold small mb-1">Adresse e-mail</label>
+        <div class="field-with-icon">
+            <i class="bi bi-envelope-fill field-icon"></i>
+            {{ form_widget(contact.email, {
+                'attr': { 'class': 'form-control premium-input', 'placeholder': 'Votre e-mail' }
+            }) }}
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label fw-semibold small mb-1">Objet de votre demande</label>
+        <div class="field-with-icon">
+            <i class="bi bi-chat-dots-fill field-icon"></i>
+            {{ form_widget(contact.subject, {
+                'attr': { 'class': 'form-control premium-input', 'placeholder': 'Sujet' }
+            }) }}
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label fw-semibold small mb-1">Votre message</label>
+        <div class="field-with-icon textarea-icon">
+            <i class="bi bi-pencil-square field-icon"></i>
+            {{ form_widget(contact.message, {
+                'attr': {
+                    'class': 'form-control premium-input',
+                    'placeholder': 'Expliquez votre demande…',
+                    'style': 'height: 150px'
+                }
+            }) }}
+        </div>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label fw-semibold small mb-1">
+            <i class="bi bi-camera me-1"></i>
+            Joindre une photo (optionnel)
+        </label>
+        {{ form_widget(contact.featuredImageFile, {
+            'attr': { 'class': 'form-control premium-file' }
+        }) }}
+    </div>
+
 </div>
 
+<button type="submit" class="btn btn-premium w-100 mt-3">
+    <i class="bi bi-send-check me-1"></i>
+    Envoyer ma demande
+</button>
 
+{{ form_end(contact) }}
+
+
+                        <div class="premium-footer mt-3">
+                            <p class="small text-muted mb-0 text-center">
+                                Vos informations restent confidentielles et ne sont utilisées que pour répondre à votre demande.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
 {% endblock %}

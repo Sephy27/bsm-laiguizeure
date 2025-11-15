@@ -2,35 +2,29 @@
 
 namespace App\Controller;
 
+// src/Controller/GalerieController.php
+
 use App\Repository\GalerieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-final class GalerieController extends AbstractController
+class GalerieController extends AbstractController
 {
     #[Route('/galerie', name: 'app_galerie')]
-    public function index(GalerieRepository $repository, Request $request): Response
+    public function index(GalerieRepository $galerieRepository): Response
     {
-        $galerie = $repository->findAll();
-        /* $page = $request->query->get('page',1);
-        $galerie = $repository->getAllPaginated($page, 2); */
+        $galerie = $galerieRepository->findBy(
+            [],
+            [
+                'position' => 'ASC',
+                'createdAt' => 'DESC',
+            ]
+        );
 
         return $this->render('galerie/index.html.twig', [
-            'galerie' => $galerie
-        ]);
-    }
-
-     #[Route('/{id}', name: 'show', requirements: ['id'=> '\d+'])]
-    public function show(Request $request, int $id, GalerieRepository $repository): Response
-    {
-        $galerie = $repository->find($id);
-        if ($galerie->getId() !== $id) {
-            return $this->redirectToRoute('app_admin_galeries_show', [ 'id' => $galerie->getId()]);
-        }
-        return $this->render('galerie/show.html.twig' , [
-            'galerie' => $galerie
+            'galerie' => $galerie,
         ]);
     }
 }
+

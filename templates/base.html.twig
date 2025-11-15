@@ -13,12 +13,13 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     {# Styles additionnels (optionnels) #}
     {% block stylesheets %}
       {# Si ce fichier n’est pas réellement servi, tu peux le retirer.
          Sinon laisse-le si tu l’utilises. #}
-      <link rel="stylesheet" href="{{ asset('assets/styles/app.css') }}">
+      <link rel="stylesheet" href="{{ asset('styles/app.scss') }}">
     {% endblock %}
   </head>
 
@@ -39,14 +40,15 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    {# <script src="{{ asset('js/app.js') }}"></script> #}
 
 
     {# Charge ton app.js via Importmap (toujours chargé, hors des blocs) #}
-    {{ importmap('app') }}
+    
 
     {# Espace pour des scripts spécifiques à une page #}
     {% block javascripts %}
+      {% block importmap %}{{ importmap('app') }}{% endblock %}
         
       {# si une vue enfant redéfinit ce bloc, elle n’empêchera pas importmap d’être injecté #}
     {% endblock %}

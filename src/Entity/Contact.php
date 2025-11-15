@@ -6,7 +6,7 @@ use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
@@ -17,36 +17,47 @@ class Contact
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id;
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
-    #[Assert\Length(min: 2, max: 50)]
+    #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: "Merci d’indiquer vos nom et prénom.")]
+    #[Assert\Length(min: 2, max: 100)]
     private ?string $fullName = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\Email()]
-    #[Assert\Length(min: 2, max: 180)]
-    private string $email;
+    #[Assert\NotBlank(message: "Merci d’indiquer votre adresse e-mail.")]
+    #[Assert\Email(message: "Merci de saisir une adresse e-mail valide.")]
+    private ?string $email = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
-     #[Assert\Length(min: 2, max: 100)]
+    #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message: "Merci d’indiquer l’objet de votre demande.")]
+    #[Assert\Length(min: 2, max: 150)]
     private ?string $subject = null;
 
     #[ORM\Column(type: 'text')]
-    #[Assert\NotBlank()]
-    private string $message;
+    #[Assert\NotBlank(message: "Merci de décrire votre demande.")]
+    #[Assert\Length(min: 10)]
+    private ?string $message = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $featuredImage = null;
+    
 
+    // === Gestion du fichier avec VichUploader ===
+
+    // propriété utilisée par le formulaire (File)
     #[Vich\UploadableField(mapping: 'uploads', fileNameProperty: 'featuredImage')]
-    #[Assert\Image(minWidth: 200, maxWidth: 6000, minHeight: 200, maxHeight: 6000)]
     private ?File $featuredImageFile = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\NotNull()]
-    private ?\DateTimeImmutable $createdAt;
+    // nom du fichier stocké en base
+    #[ORM\Column(nullable: true)]
+    private ?string $featuredImage = null;
+
+
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
 
 
@@ -108,6 +119,22 @@ class Contact
         return $this;
     }
 
+    public function getFeaturedImageFile(): ?File
+    {
+        return $this->featuredImageFile;
+    }
+
+    public function setFeaturedImageFile(?File $featuredImageFile): self
+    {
+        $this->featuredImageFile = $featuredImageFile;
+
+        if ($featuredImageFile !== null) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
     public function getFeaturedImage(): ?string
     {
         return $this->featuredImage;
@@ -120,25 +147,6 @@ class Contact
         return $this;
     }
 
-     /**
-     * Get the value of featuredImageFile
-     */ 
-    public function getFeaturedImageFile() : ?File
-    {
-        return $this->featuredImageFile;
-    }
-
-    /**
-     * Set the value of featuredImageFile
-     *
-     * @return  self
-     */ 
-    public function setFeaturedImageFile($featuredImageFile): static
-    {
-        $this->featuredImageFile = $featuredImageFile;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -153,4 +161,24 @@ class Contact
     }
 
   
+
+    /**
+     * Get the value of updatedAt
+     */ 
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     *
+     * @return  self
+     */ 
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
 }

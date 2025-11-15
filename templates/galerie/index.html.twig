@@ -3,41 +3,44 @@
 {% block title %}Galerie{% endblock %}
 
 {% block body %}
-<article>
-
-
-<div class="container text-center my-4">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-    {% for galerie in galerie %}
-      <div class="col">
-        <div class="card shadow-sm border-0 overflow-hidden">
-          <img
-            src="{{ asset('images/uploads/') ~ galerie.featuredImage  }}"
-            class="card-img-top zoom-thumb"
-            alt="{{ galerie.name }}"
-            data-zoom-src="{{ asset('images/uploads/') ~ galerie.featuredImage }}"
-          >
-        </div>
+<section class="content gallery-page">
+  <div class="container">
+    {# Intro premium #}
+    <header class="gallery-intro text-center mb-4">
+      <p class="text-uppercase small text-muted fw-semibold mb-1">Réalisations</p>
+        <h1 class="h3 mb-2">Galerie de travaux réalisés</h1>
+          <p class="text-muted mb-0 small">
+            Avant / après, rénovations, aménagements, affûtage, menuiserie et ferronnerie… 
+            découvrez en images quelques exemples de réalisations effectuées pour mes clients
+            autour de Gaillon et ses environs.
+          </p>
+    </header>
+    <div class="container text-center my-4">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for galerie in galerie %}
+          <div class="col">
+            <div class="card shadow-sm border-0 overflow-hidden">
+              <img
+                src="{{ asset('images/uploads/') ~ galerie.featuredImage  }}"
+                class="card-img-top zoom-thumb"
+                alt="{{ galerie.name }}"
+                data-zoom-src="{{ asset('images/uploads/') ~ galerie.featuredImage }}"
+              >
+            </div>
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
+
+      <dialog id="zoomDlg" class="zoom-dialog" tabindex="-1" aria-label="Agrandissement de l’image">
+        <button type="button"
+                class="btn btn-danger btn-lg position-absolute top-0 end-0 m-2"
+                aria-label="Fermer"
+                data-zoom-close>
+          &times;
+        </button>
+        <img id="zoomImg" alt="" class="img-fluid rounded shadow">
+      </dialog>
   </div>
-  {# {% if data.pages > 1 %}
-    {{ include('partials/_pagination.html.twig', {
-      currentPage: data.current,
-      maxPage: data.pages,
-      path: 'app_galerie_index'}) }}
-  {% endif %} #}
-</div>
-
-<dialog id="zoomDlg" class="zoom-dialog" tabindex="-1" aria-label="Agrandissement de l’image">
-  <button type="button"
-          class="btn btn-danger btn-lg position-absolute top-0 end-0 m-2"
-          aria-label="Fermer"
-          data-zoom-close>
-    &times;
-  </button>
-  <img id="zoomImg" alt="" class="img-fluid rounded shadow">
-</dialog>
-
-</article>
+</section>
 {% endblock %}

@@ -1,13 +1,97 @@
-<h1>Demande de {{ contact.fullName }}</h1>
-<p>Email : {{ contact.email }}</p>
-<p>Sujet : {{ contact.subject }}</p>
-<p>Message :</p>
-<div>
-{{ contact.message | raw }}
-</div>
+{# templates/emails/trial_request_internal.html.twig #}
+<!doctype html>
+<html lang="fr">
+  <body style="margin:0;padding:0;background:#f3f4f6;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;">
+    <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background:#f3f4f6;">
+      <tr>
+        <td align="center" style="padding:24px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.06);">
+            
+          
 
-<p>photo : <img src="{{ vich_uploader_asset(contact, 'featuredImageFile') }}" alt=" "></p>
+            {# Bandeau titre vert #}
+            <tr>
+              <td style="background:#09502C;color:#fff;padding:14px 24px;font-size:18px;font-weight:700;">
+                Nouveau message reçu via le site
+              </td>
+            </tr>
 
+            {# Corps du mail #}
+            <tr>
+              <td style="padding:24px 24px 16px 24px;">
+                <p style="margin:0 0 10px 0;color:#111827;font-size:16px;font-weight:600;">
+                  Bonjour,
+                </p>
+                <p style="margin:0 0 16px 0;color:#374151;font-size:14px;line-height:1.5;">
+                  Une nouvelle demande vient d’être envoyée depuis le formulaire de contact du site
+                  <strong>BSM L'Aiguiz'Eure</strong>.
+                </p>
 
+                {# Bloc infos principales #}
+                <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate;border-spacing:0 6px;margin-top:8px;">
+                  <tr>
+                    <td style="padding:8px 10px;color:#6b7280;font-size:13px;width:150px;background:#f9fafb;border-radius:8px 0 0 8px;">
+                     Prénom / Nom
+                    </td>
+                    <td style="padding:8px 10px;color:#111827;font-size:13px;background:#f9fafb;border-radius:0 8px 8px 0;">
+                      {{ contact.fullName }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 10px;color:#6b7280;font-size:13px;width:150px;background:#f9fafb;border-radius:8px 0 0 8px;">
+                      Email
+                    </td>
+                    <td style="padding:8px 10px;color:#111827;font-size:13px;background:#f9fafb;border-radius:0 8px 8px 0;">
+                      <a href="mailto:{{ contact.email }}" style="color:#09502C;text-decoration:none;">{{ contact.email }}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px 10px;color:#6b7280;font-size:13px;width:150px;background:#f9fafb;border-radius:8px 0 0 8px;">
+                      Sujet
+                    </td>
+                    <td style="padding:8px 10px;color:#111827;font-size:13px;background:#f9fafb;border-radius:0 8px 8px 0;">
+                      {{ contact.subject }}
+                    </td>
+                  </tr>
+                </table>
 
-<p>Au boulot Marco !!</p>
+                {# Message #}
+                <div style="margin-top:18px;padding:14px 14px 12px 14px;background:#fdf7f2;border-left:4px solid #ff6900;border-radius:10px;">
+                  <p style="margin:0 0 6px 0;color:#6b7280;font-size:13px;font-weight:600;">
+                    Message :
+                  </p>
+                  <p style="margin:0;color:#111827;font-size:13px;line-height:1.6;white-space:pre-line;">
+                    {{ contact.message }}
+                  </p>
+                </div>
+
+                {# CTA #}
+                <div style="margin-top:18px;">
+                  <a href="mailto:{{ contact.email }}" style="display:inline-block;background:#ff6900;color:#ffffff;text-decoration:none;padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;">
+                    Répondre à {{ contact.fullName }}
+                  </a>
+                </div>
+
+                <p style="margin:14px 0 0 0;color:#9ca3af;font-size:11px;">
+                  Reçu le {{ contact.createdAt ? contact.createdAt|date('d/m/Y à H:i') : '—' }}.
+                </p>
+              </td>
+            </tr>
+
+            {# Footer #}
+            <tr>
+              <td style="background:#02130b;color:#e5e7eb;padding:14px 24px;font-size:11px;line-height:1.6;">
+                <strong>BSM L'Aiguiz'Eure</strong><br>
+                30 Rue de Pacy, 27600 Gaillon<br>
+                Tél. <a href="tel:+33650033926" style="color:#ffb366;text-decoration:none;">06 50 03 39 26</a> ·
+                <a href="mailto:laiguizeure.bsm27@gmail.com" style="color:#ffb366;text-decoration:none;">laiguizeure.bsm27@gmail.com</a><br>
+                <span style="opacity:.8;">Cet email est destiné à l’artisan. Merci de ne pas le transférer à des tiers sans vérification.</span>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

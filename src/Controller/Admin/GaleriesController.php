@@ -18,7 +18,13 @@ final class GaleriesController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(GalerieRepository $repository): Response
     {
-        $galerie = $repository->findAll();
+         $galerie = $repository->findBy(
+        [],
+        [
+            'position' => 'ASC',
+            'createdAt' => 'DESC',
+        ]
+    );
 
         return $this->render('galerie/index.html.twig', [
             'galerie' => $galerie
@@ -38,13 +44,17 @@ final class GaleriesController extends AbstractController
     }
 
     #[Route('/add', name:'add')]
-    public function add(Request $request, EntityManagerInterface $em)
+    public function add(Request $request, EntityManagerInterface $em, GalerieRepository $repository)
     {
         $galerie = new Galerie();
         $form = $this->createForm(AddGalerieFormType::class, $galerie);
         $form -> handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $galerie->setName($galerie->getName());
+            // 🔢 Donner une position automatique à la fin
+            $last = $repository->findOneBy([], ['position' => 'DESC']);
+            $nextPosition = $last ? $last->getPosition() + 1 : 1;
+            $galerie->setPosition($nextPosition);
             
             $em->persist($galerie);
             $em->flush();

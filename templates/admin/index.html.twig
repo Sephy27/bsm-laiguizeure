@@ -1,0 +1,191 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+<div class="ea-dashboard">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+        <div>
+            <h1 class="h3 mb-1">Tableau de bord</h1>
+            <p class="text-muted small mb-0">
+                Vue d’ensemble de l’activité de BSM L'Aiguiz'Eure.
+            </p>
+        </div>
+        <div class="mt-3 mt-md-0">
+            <a href="{{ path('app_home') }}" class="btn btn-outline-secondary btn-sm me-2" target="_blank">
+                Voir le site
+            </a>
+            <a href="{{ path('app_contact') }}" class="btn btn-primary btn-sm" target="_blank">
+                Tester le formulaire
+            </a>
+        </div>
+    </div>
+
+    {# -------- WIDGETS STATS -------- #}
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-md-3">
+            <div class="bg-white rounded p-3 h-100">
+                <p class="text-uppercase small text-muted mb-1">Messages total</p>
+                <p class="h3 mb-0">{{ contactsCount }}</p>
+                <p class="small text-muted mb-0">Tous les formulaires reçus.</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <div class="bg-white rounded p-3 h-100">
+                <p class="text-uppercase small text-muted mb-1">Messages ce mois-ci</p>
+                <p class="h3 mb-0">{{ contactsThisMonth }}</p>
+                <p class="small text-muted mb-0">Sur le mois en cours.</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <div class="bg-white rounded p-3 h-100">
+                <p class="text-uppercase small text-muted mb-1">Photos en galerie</p>
+                <p class="h3 mb-0">{{ photosCount }}</p>
+                <p class="small text-muted mb-0">Images publiées.</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-3">
+            <div class="bg-white rounded p-3 h-100">
+                <p class="text-uppercase small text-muted mb-1">Photos ce mois-ci</p>
+                <p class="h3 mb-0">{{ photosThisMonth }}</p>
+                <p class="small text-muted mb-0">Ajouts récents.</p>
+            </div>
+        </div>
+    </div>
+
+    {# -------- GRAPHIQUE -------- #}
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-xl-8">
+            <div class="bg-white rounded p-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h2 class="h5 mb-0">Évolution sur 6 mois</h2>
+                    <span class="small text-muted">Messages & photos</span>
+                </div>
+
+                <div style="position: relative; height: 260px;">
+                    <canvas id="contactsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# -------- DERNIERS MESSAGES -------- #}
+    <div class="row g-3">
+        <div class="col-12 col-xl-8">
+            <div class="bg-white rounded p-3">
+                <h2 class="h5 mb-2">Derniers messages reçus</h2>
+
+                {% if lastContacts is empty %}
+                    <p class="text-muted small mb-0">Aucun message enregistré pour le moment.</p>
+                {% else %}
+                    <div class="table-responsive small">
+                        <table class="table align-middle mb-0">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Sujet</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for contact in lastContacts %}
+                                <tr>
+                                    <td>{{ contact.fullName }}</td>
+                                    <td>{{ contact.subject|u.truncate(40, '…') }}</td>
+                                    <td><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></td>
+                                    <td>{{ contact.createdAt ? contact.createdAt|date('d/m/Y H:i') : '' }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {# -------- JS DU GRAPH -------- #}
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const labels        = {{ chartLabels|json_encode|raw }};
+            const contactsData  = {{ chartContacts|json_encode|raw }};
+            const photosData    = {{ chartPhotos|json_encode|raw }};
+
+            console.log('[Dashboard] labels =', labels);
+            console.log('[Dashboard] contacts =', contactsData);
+            console.log('[Dashboard] photos =', photosData);
+
+            const canvas = document.getElementById('contactsChart');
+            if (!canvas || typeof Chart === 'undefined') {
+                console.warn('[Dashboard] Pas de canvas ou Chart non chargé');
+                return;
+            }
+
+            new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Messages reçus',
+                            data: contactsData,
+                            borderColor: '#0b6a3e',
+                            backgroundColor: 'rgba(11,106,62,0.15)',
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 3,
+                            pointBackgroundColor: '#0b6a3e'
+                        },
+                        {
+                            label: 'Photos ajoutées',
+                            data: photosData,
+                            borderColor: '#ff6900',
+                            backgroundColor: 'rgba(255,105,0,0.15)',
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 3,
+                            pointBackgroundColor: '#ff6900'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</div>
+{% endblock %}
+
+
+

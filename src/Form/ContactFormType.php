@@ -29,8 +29,8 @@ class ContactFormType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Merci d’indiquer vos nom et prénom.']),
-                    new Assert\Length(['min' => 2, 'max' => 100]),
+                    new Assert\NotBlank(message: 'Merci d’indiquer vos nom et prénom.'),
+                    new Assert\Length(min: 2, max: 100),
                 ],
             ])
 
@@ -41,8 +41,8 @@ class ContactFormType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Merci d’indiquer votre adresse e-mail.']),
-                    new Assert\Email(['message' => 'Merci de saisir une adresse e-mail valide.']),
+                    new Assert\NotBlank(message: 'Merci d’indiquer votre adresse e-mail.'),
+                    new Assert\Email(message: 'Merci de saisir une adresse e-mail valide.'),
                 ],
             ])
 
@@ -55,8 +55,8 @@ class ContactFormType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Merci d’indiquer l’objet de votre demande.']),
-                    new Assert\Length(['min' => 2, 'max' => 150]),
+                    new Assert\NotBlank(message: 'Merci d’indiquer l’objet de votre demande.'),
+                    new Assert\Length(min: 2, max: 150),
                 ],
             ])
 
@@ -72,10 +72,9 @@ class ContactFormType extends AbstractType
                     'class'       => 'form-control',
                 ],
                 'constraints'   => [
-                    new Assert\Image([
-                        'maxSize' => '8M',
-                        'maxSizeMessage' => 'L’image ne peut pas dépasser {{ limit }}.',
-                    ]),
+                    new Assert\Image(
+                        maxSize: '8M',
+                        maxSizeMessage: 'L’image ne peut pas dépasser {{ limit }}.'),
                 ],
             ])
 
@@ -87,11 +86,10 @@ class ContactFormType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mb-3'],
                 'constraints' => [
-                    new Assert\NotBlank(['message' => 'Merci de décrire votre demande.']),
-                    new Assert\Length([
-                        'min' => 10,
-                        'minMessage' => 'Votre message doit contenir au moins {{ limit }} caractères.',
-                    ]),
+                    new Assert\NotBlank(message: 'Merci de décrire votre demande.'),
+                    new Assert\Length(
+                        min: 10,
+                        minMessage: 'Votre message doit contenir au moins {{ limit }} caractères.'),
                 ],
             ])
         ;

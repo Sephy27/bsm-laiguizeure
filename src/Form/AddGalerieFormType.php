@@ -18,14 +18,13 @@ class AddGalerieFormType extends AbstractType
             ->add('featuredImageFile', FileType::class,[
                 'label' => 'Ajouter une image',
                 'constraints' => [
-                    new Assert\Image([
-                        'maxSize' => '8M',
-                        'mimeTypes' => [
+                    new Assert\Image(
+                        maxSize: '8M',
+                        mimeTypes: [
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image au format JPEG ou PNG.'
-                    ])
+                        mimeTypesMessage: 'Veuillez télécharger une image au format JPEG ou PNG.')
                 ]  
             ])
 

@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class AddGalerieFormType extends AbstractType
 {
@@ -15,17 +16,26 @@ class AddGalerieFormType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('featuredImageFile', FileType::class,[
-                'label' => 'Ajouter une image',
+            ->add('featuredImageFile', VichFileType::class,[
+                'label' => 'Fichier (image ou vidéo)',
+                'required' => false,
                 'constraints' => [
-                    new Assert\Image(
-                        maxSize: '8M',
+                    new Assert\File(
+                        maxSize: '50M',
                         mimeTypes: [
+                            // Images
                             'image/jpeg',
                             'image/png',
+                            'image/webp',
+                            'image/gif',
+                            // Vidéos
+                            'video/mp4',
+                            'video/quicktime',
+                            'video/x-msvideo', // avi
                         ],
-                        mimeTypesMessage: 'Veuillez télécharger une image au format JPEG ou PNG.')
-                ]  
+                        mimeTypesMessage: 'Veuillez téléverser une image (JPG, PNG, WEBP, GIF) ou une vidéo (MP4, MOV, AVI) valide.'
+                    ),
+                ],
             ])
 
             ->add('createdAt', null, [

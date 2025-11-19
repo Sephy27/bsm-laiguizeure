@@ -134,13 +134,14 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToRoute('Voir le site', 'fa fa-globe', 'app_home');
-        yield MenuItem::linkToRoute('Tester le formulaire', 'fa fa-envelope', 'app_contact');
+        
 
         yield MenuItem::section('Contacts');
         yield MenuItem::linkToCrud('Emails reçus', 'fa fa-envelope-open', Contact::class);
 
         yield MenuItem::section('Galerie');
-        yield MenuItem::linkToCrud('Photos', 'fa fa-camera', Galerie::class);
+        yield MenuItem::linkToCrud('Gérer Photos / Videos', 'fa fa-camera', Galerie::class);
+        yield MenuItem::linkToRoute('Voir la galerie', 'fa fa-globe', 'app_galerie');
 
         yield MenuItem::section();
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-right-from-bracket');

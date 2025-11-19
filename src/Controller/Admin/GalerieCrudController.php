@@ -9,18 +9,24 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Option\SearchMode;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 class GalerieCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private EntityManagerInterface $em,
+        private AdminUrlGenerator $adminUrlGenerator,
+    ) {}
+
     public static function getEntityFqcn(): string
     {
         return Galerie::class;
@@ -28,15 +34,17 @@ class GalerieCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return parent::configureCrud($crud)
-            ->setSearchFields(['name', 'description'])
+        return $crud
+            ->setEntityLabelInSingular('Média')
+            ->setEntityLabelInPlural('Galerie')
+            ->setSearchFields(['name'])
             ->setAutofocusSearch()
             ->setSearchMode(SearchMode::ALL_TERMS)
             ->setPaginatorPageSize(12)
             ->setPaginatorRangeSize(2)
             ->setPaginatorUseOutputWalkers(true)
             ->setPaginatorFetchJoinCollection(true)
-            // tri par défaut : d’abord position, puis date
+            // tri par défaut : position puis date
             ->setDefaultSort([
                 'position'  => 'ASC',
                 'createdAt' => 'DESC',
@@ -45,153 +53,195 @@ class GalerieCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $id = IdField::new('id')
+            ->hideOnForm()
+            ->hideOnDetail()
+            ->hideOnIndex();
+
+        $name = TextField::new('name', 'Nom');
+
+        $position = IntegerField::new('position', 'Ordre')
+            ->onlyOnIndex()
+            ->setHelp('Plus le nombre est petit, plus la photo apparaît en haut.');
+
+        // Champ fichier (upload) – uniquement dans les formulaires
+        $fileField = Field::new('featuredImageFile', 'Fichier (image ou vidéo)')
+        ->setFormType(VichFileType::class)
+        ->setFormTypeOptions([
+            'allow_delete' => false,
+            'download_uri' => false,
+            'required' => $pageName === Crud::PAGE_NEW,
+        ])
+        ->onlyOnForms();
+            
+
+        // Aperçu image/vidéo en index
+        $previewIndex = TextField::new('featuredImage', 'Aperçu')
+            ->onlyOnIndex()
+            ->setTemplatePath('admin/fields/media_preview.html.twig');
+
+        // Aperçu image/vidéo en show
+        $previewDetail = TextField::new('featuredImage', 'Aperçu')
+            ->onlyOnDetail()
+            ->setTemplatePath('admin/fields/media_preview.html.twig');
+
+        $createdAt = DateTimeField::new('createdAt', 'Créée le')
+            ->hideOnForm();
+
+        if (Crud::PAGE_INDEX === $pageName) {
+            return [
+                $name,
+                $position,
+                $previewIndex,
+                $createdAt,
+            ];
+        }
+
+        if (Crud::PAGE_DETAIL === $pageName) {
+            return [
+                $name,
+                $position,
+                $previewDetail,
+                $createdAt,
+            ];
+        }
+
+        // Formulaires NEW / EDIT
         return [
-            IdField::new('id')
-                ->hideOnForm()
-                ->hideOnDetail()
-                ->hideOnIndex(),
-
-            TextField::new('name', 'Nom'),
-
-            IntegerField::new('position', 'Ordre')
-                ->setHelp('Plus le nombre est petit, plus la photo apparaît en haut.')
-                ->setFormTypeOption('attr', ['style' => 'max-width: 100px;']),
-
-            ImageField::new('featuredImage', 'Image')
-                ->setBasePath('/images/uploads/')
-                ->setUploadDir('public/images/uploads/'),
-
-            DateTimeField::new('createdAt', 'Créée le')
-                ->hideOnForm(),
+            $name,
+            $position,
+            $fileField,
         ];
     }
 
     public function configureActions(Actions $actions): Actions
     {
-        // Action pour MONTER la photo
-        $moveUp = Action::new('moveUp', '')
-            ->setIcon('fa fa-arrow-up')
-            ->setLabel(false)
-            ->setCssClass('btn btn-link text-secondary p-0')
-            ->setHtmlAttributes(['title' => 'Monter'])
-            ->linkToCrudAction('moveUp');
+        // Bouton "Monter"
+        $moveUp = Action::new('moveUp', '↑', 'fa fa-arrow-up')
+            ->linkToCrudAction('moveUp')
+            ->setHtmlAttributes([
+                'title' => 'Monter',
+            ]);
 
-        // Action pour DESCENDRE la photo
-        $moveDown = Action::new('moveDown', '')
-            ->setIcon('fa fa-arrow-down')
-            ->setLabel(false)
-            ->setCssClass('btn btn-link text-secondary p-0')
-            ->setHtmlAttributes(['title' => 'Descendre'])
-            ->linkToCrudAction('moveDown');
+        // Bouton "Descendre"
+        $moveDown = Action::new('moveDown', '↓', 'fa fa-arrow-down')
+            ->linkToCrudAction('moveDown')
+            ->setHtmlAttributes([
+                'title' => 'Descendre',
+            ]);
 
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
-            // si tu veux empêcher l’édition via index, décommente la ligne suivante :
-            // ->remove(Crud::PAGE_INDEX, Action::EDIT)
-
-            // 👉 on ajoute les flèches sur chaque LIGNE de l’index
             ->add(Crud::PAGE_INDEX, $moveUp)
             ->add(Crud::PAGE_INDEX, $moveDown);
     }
 
     /**
-     * Monter la photo dans l'ordre (échanger la position avec la précédente).
+     * Monte le média d’un cran (échange les positions).
      */
-    public function moveUp(
-        Request $request,
-        EntityManagerInterface $em,
-        AdminUrlGenerator $urlGenerator
-    ): Response {
-        $id = $request->query->get('entityId');
-
-        if (!$id) {
-            $this->addFlash('warning', 'Aucune photo sélectionnée.');
-            return $this->redirectToIndex($urlGenerator);
-        }
-
-        /** @var Galerie|null $galerie */
-        $galerie = $em->getRepository(Galerie::class)->find($id);
-
-        if (!$galerie) {
-            $this->addFlash('warning', 'Photo introuvable.');
-            return $this->redirectToIndex($urlGenerator);
-        }
-
-        $currentPos = $galerie->getPosition() ?? 0;
-        $repo = $em->getRepository(Galerie::class);
-
-        // Élément précédent = position PLUS PETITE la plus proche
-        $previous = $repo->createQueryBuilder('g')
-            ->andWhere('g.position < :pos')
-            ->setParameter('pos', $currentPos)
-            ->orderBy('g.position', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-
-        if ($previous instanceof Galerie) {
-            $prevPos = $previous->getPosition();
-            $previous->setPosition($currentPos);
-            $galerie->setPosition($prevPos);
-            $em->flush();
-        }
-
-        return $this->redirectToIndex($urlGenerator);
+    public function moveUp(AdminContext $context): Response
+    {
+    $id = $context->getRequest()->query->get('entityId');
+    if (!$id) {
+        return $this->redirectToIndex();
     }
+
+    $repo = $this->em->getRepository(Galerie::class);
+    $galerie = $repo->find($id);
+
+    if (!$galerie instanceof Galerie) {
+        return $this->redirectToIndex();
+    }
+
+    $currentPos = $galerie->getPosition() ?? 0;
+    $targetPos  = $currentPos - 1;
+
+    if ($targetPos < 0) {
+        return $this->redirectToIndex();
+    }
+
+    // Élément qui occupe déjà la position cible
+    $other = $repo->findOneBy(['position' => $targetPos]);
+    if ($other instanceof Galerie) {
+        $other->setPosition($currentPos);
+    }
+
+    $galerie->setPosition($targetPos);
+    $this->em->flush();
+
+    return $this->redirectToIndex();
+}
 
     /**
-     * Descendre la photo dans l'ordre (échanger la position avec la suivante).
+     * Descend le média d’un cran (échange les positions).
      */
-    public function moveDown(
-        Request $request,
-        EntityManagerInterface $em,
-        AdminUrlGenerator $urlGenerator
-    ): Response {
-        $id = $request->query->get('entityId');
-
-        if (!$id) {
-            $this->addFlash('warning', 'Aucune photo sélectionnée.');
-            return $this->redirectToIndex($urlGenerator);
-        }
-
-        /** @var Galerie|null $galerie */
-        $galerie = $em->getRepository(Galerie::class)->find($id);
-
-        if (!$galerie) {
-            $this->addFlash('warning', 'Photo introuvable.');
-            return $this->redirectToIndex($urlGenerator);
-        }
-
-        $currentPos = $galerie->getPosition() ?? 0;
-        $repo = $em->getRepository(Galerie::class);
-
-        // Élément suivant = position PLUS GRANDE la plus proche
-        $next = $repo->createQueryBuilder('g')
-            ->andWhere('g.position > :pos')
-            ->setParameter('pos', $currentPos)
-            ->orderBy('g.position', 'ASC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-
-        if ($next instanceof Galerie) {
-            $nextPos = $next->getPosition();
-            $next->setPosition($currentPos);
-            $galerie->setPosition($nextPos);
-            $em->flush();
-        }
-
-        return $this->redirectToIndex($urlGenerator);
+    public function moveDown(AdminContext $context): Response
+{
+    $id = $context->getRequest()->query->get('entityId');
+    if (!$id) {
+        return $this->redirectToIndex();
     }
 
-    private function redirectToIndex(AdminUrlGenerator $urlGenerator): RedirectResponse
-    {
-        $url = $urlGenerator
-            ->setController(self::class)
-            ->setAction(Action::INDEX)
-            ->generateUrl();
+    $repo = $this->em->getRepository(Galerie::class);
+    $galerie = $repo->find($id);
 
-        return new RedirectResponse($url);
+    if (!$galerie instanceof Galerie) {
+        return $this->redirectToIndex();
     }
+
+    $currentPos = $galerie->getPosition() ?? 0;
+    $targetPos  = $currentPos + 1;
+
+    $other = $repo->findOneBy(['position' => $targetPos]);
+    if ($other instanceof Galerie) {
+        $other->setPosition($currentPos);
+    }
+
+    $galerie->setPosition($targetPos);
+    $this->em->flush();
+
+    return $this->redirectToIndex();
+}
+
+private function redirectToIndex(): Response
+{
+    $url = $this->adminUrlGenerator
+        ->setController(self::class)
+        ->setAction(Action::INDEX)
+        ->generateUrl();
+
+    return $this->redirect($url);
+}
+
+private function getNextPosition(): int
+{
+    $qb = $this->em->createQueryBuilder()
+        ->select('COALESCE(MAX(g.position), -1)')
+        ->from(Galerie::class, 'g');
+
+    $max = (int) $qb->getQuery()->getSingleScalarResult();
+
+    // ex : si aucune ligne -> -1, donc prochaine position = 0
+    return $max + 1;
+}
+
+
+
+
+public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+{
+    if (!$entityInstance instanceof Galerie) {
+        parent::persistEntity($entityManager, $entityInstance);
+        return;
+    }
+
+    // Si c'est une nouvelle Galerie, on lui attribue la prochaine position libre
+    if ($entityInstance->getId() === null) {
+        $entityInstance->setPosition($this->getNextPosition());
+    }
+
+    parent::persistEntity($entityManager, $entityInstance);
+}
+
+
 }

@@ -18,17 +18,34 @@
     <div class="container text-center my-4">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for galerie in galerie %}
-          <div class="col">
-            <div class="card shadow-sm border-0 overflow-hidden">
-              <img
-                src="{{ asset('images/uploads/') ~ galerie.featuredImage  }}"
-                class="card-img-top zoom-thumb"
-                alt="{{ galerie.name }}"
-                data-zoom-src="{{ asset('images/uploads/') ~ galerie.featuredImage }}"
-              >
-            </div>
-          </div>
-        {% endfor %}
+  <div class="col">
+    <div class="card shadow-sm border-0 overflow-hidden">
+
+      <div class="ratio ratio-4x3">
+        {% if galerie.isVideo() %}
+          <video
+            class="w-100 h-100 object-fit-cover"
+            controls
+            preload="metadata"
+          >
+            <source src="{{ asset('images/uploads/') ~ galerie.featuredImage }}" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo HTML5.
+          </video>
+        {% else %}
+          <img
+            src="{{ asset('images/uploads/') ~ galerie.featuredImage }}"
+            class="w-100 h-100 object-fit-cover zoom-thumb"
+            alt="{{ galerie.name }}"
+            data-zoom-src="{{ asset('images/uploads/') ~ galerie.featuredImage }}"
+          >
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+{% endfor %}
+
+
       </div>
     </div>
 

@@ -6,6 +6,7 @@ use App\Repository\GalerieRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Mime\MimeTypes;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: GalerieRepository::class)]
@@ -25,7 +26,19 @@ class Galerie
     private ?string $featuredImage = null;
 
     #[Vich\UploadableField(mapping: 'uploads', fileNameProperty: 'featuredImage')]
-    #[Assert\Image(minWidth: 200, maxWidth: 6000, minHeight: 200, maxHeight: 6000)]
+    #[Assert\File(maxSize: '50M', mimeTypes: [
+        // Images
+        'image/jpeg',
+        'image/png',
+        'image/webp',
+        'image/gif',
+        // Vidéos
+        'video/mp4',
+        'video/quicktime',
+        'video/x-msvideo', // avi
+    ],
+    mimeTypesMessage: 'Merci d’envoyer une image (JPG, PNG, WEBP, GIF) ou une vidéo (MP4, MOV, AVI).'
+    )]
     private ?File $featuredImageFile = null;
 
     #[ORM\Column(type: 'integer', options: ['default' => 0])]
@@ -34,6 +47,9 @@ class Galerie
     #[ORM\Column]
     #[Assert\NotNull]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 20, options: ['default' => 'image'])]
+    private string $mediaType = 'image'; // "image" ou "video"
 
     public function __construct()
     {
@@ -87,6 +103,17 @@ class Galerie
     {
         $this->featuredImageFile = $featuredImageFile;
 
+        if ($featuredImageFile !== null) {
+            // Essaie de deviner le mime-type
+            $mimeType = $featuredImageFile->getMimeType() ?? MimeTypes::getDefault()->guessMimeType($featuredImageFile->getPathname());
+
+            if (\is_string($mimeType) && str_starts_with($mimeType, 'video/')) {
+                $this->mediaType = 'video';
+            } else {
+                $this->mediaType = 'image';
+            }
+        }
+
         return $this;
     }
 
@@ -112,5 +139,27 @@ class Galerie
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function getMediaType(): string
+    {
+        return $this->mediaType;
+    }
+
+    public function setMediaType(string $mediaType): static
+    {
+        $this->mediaType = $mediaType;
+
+        return $this;
+    }
+
+    public function isVideo(): bool
+    {
+        return $this->mediaType === 'video';
+    }
+
+    public function isImage(): bool
+    {
+        return $this->mediaType === 'image';
     }
 }

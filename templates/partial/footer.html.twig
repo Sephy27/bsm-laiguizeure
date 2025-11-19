@@ -1,39 +1,61 @@
-<footer class="text-white text-center footer">
-        <div class="row">
-            <div class="col-12 col-lg-4">
-                <h3>Où nous trouver ?</h3>
-                <p><u>Sur les marchés :</u><br/>
-                    Mardi : Gaillon <br/>
-                    Vendredi : Saint Marcel à Libre Fruits<br/>
-                    Samedi : Louviers
+<footer class="footer-modern text-white mt-5">
+    <div class="container py-5">
+
+        <div class="footer-grid">
+            <!-- Bloc : Où nous trouver -->
+            <div class="footer-col">
+                <h4>Où nous trouver ?</h4>
+                <ul>
+                    <li><strong>Marchés :</strong></li>
+                    <li>Mardi — Gaillon</li>
+                    <li>Vendredi — Saint-Marcel (Libre Fruits)</li>
+                    <li>Samedi — Louviers</li>
+                </ul>
+            </div>
+
+            <!-- Bloc : Adresse -->
+            <div class="footer-col">
+                <h4>BSM Marco L'Aiguiz'Eure</h4>
+                <p>30 Rue de Pacy<br>27600 GAILLON</p>
+                <p class="footer-note">
+                    Artisan spécialisé dans l’affûtage toutes lames & outils.
                 </p>
             </div>
-            <div class="col-6 col-lg-4">
-                <h3 >BSM Marco L'Aiguiz'Eure</h3><br/>
-                <p>
-                    30 Rue de Pacy<br/>
-                    27600 GAILLON <br/>
-                    
-                </p>
-            </div>
-            <div class="col-6 col-lg-4 secu2">
-                <h3 >Nous contacter</h3>
+
+            <!-- Bloc : Contact -->
+            <div class="footer-col">
+                <h4>Nous contacter</h4>
+
+                <div class="footer-contact">
                     <i class="bi bi-telephone"></i>
-                    <a href="tel:+33650033926" data-contact-link="phone"> 06 50 03 39 26</a> <br/>
+                    <a href="tel:+33650033926">06 50 03 39 26</a>
+                </div>
+
+                <div class="footer-contact">
                     <i class="bi bi-envelope-at-fill"></i>
-                    <a href="mailto:laiguizeure.bsm27@gmail.com" data-contact-link="mail">laiguizeure.bsm27@gmail.com</a>
-                    <a class="nav-link py-2 px-0 px-lg-auto" href="https://www.facebook.com/p/Laiguizeure-100063115097687/">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-                        </svg>
+                    <a href="mailto:laiguizeure.bsm27@gmail.com">laiguizeure.bsm27@gmail.com</a>
+                </div>
+
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/p/Laiguizeure-100063115097687/" target="_blank">
+                        <i class="bi bi-facebook"></i>
                     </a>
+                </div>
             </div>
         </div>
-        <div class="container text-center secu1">              
-            <a href="{{ path('app_mentions') }}">Mentions légales</a>
-            <div class="vr"></div>
-            <a href="{{ path('app_protection') }}">Protection des données</a>
-            
-            <p>&copy; 2025 BSM Marco L'Aiguiz'Eure. Tous droits réservés.</p>
+
+        <!-- Bas de footer -->
+        <div class="footer-bottom mt-4 pt-4">
+            <div class="footer-links">
+                <a href="{{ path('app_mentions') }}">Mentions légales</a>
+                <a href="{{ path('app_protection') }}">Protection des données</a>
+            </div>
+
+            <p class="copyright">
+                © 2025 BSM Marco L'Aiguiz'Eure — Tous droits réservés.
+            </p>
         </div>
+
+    </div>
 </footer>
+

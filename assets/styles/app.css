@@ -11993,50 +11993,185 @@ a {
   text-decoration: none;
 }
 
-.navbar {
+.bsm-navbar {
   background: #09502C;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 1rem;
 }
-.navbar .navbar-brand {
-  color: #f5900c;
-  font-size: 1.5rem;
-  font-weight: 600;
+.bsm-navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.4);
 }
-.navbar .navbar-brand:hover {
-  color: #ff9f2b;
+.bsm-navbar .navbar-toggler-icon {
+  filter: invert(1);
 }
-.navbar .nav-link {
-  color: #fff;
+
+.bsm-logo {
+  width: 120px;
+  height: auto;
+  transition: 0.25s ease;
+}
+
+.bsm-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Liens du menu */
+.bsm-link {
+  color: #f1f5f9 !important;
   font-weight: 500;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
-}
-.navbar .nav-link:hover {
-  color: #ff9f2b;
-}
-.navbar .nav-item {
-  border-bottom: 2px solid transparent;
-  display: inline-block;
-}
-.navbar .nav-item.active .nav-link, .navbar .nav-item:hover .nav-link {
-  text-decoration: underline;
-  text-decoration-color: #ff6900;
-  text-underline-offset: 8px;
+  padding: 0.6rem 1rem !important;
+  transition: color 0.25s, background 0.25s, transform 0.25s;
+  border-radius: 8px;
 }
 
-.footer {
-  padding: 15px;
-  bottom: 0;
-  width: 100%;
+/* Highlight du lien actif */
+.bsm-link.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff !important;
+  font-weight: 600;
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+}
+
+.bsm-link:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Barre de recherche */
+.bsm-search-input {
+  border-radius: 8px 0 0 8px;
+  background: #fff;
+  border: none;
+}
+
+.bsm-search-btn {
+  border-radius: 0 8px 8px 0;
+  background: #52da96;
+  color: #fff;
+  border: none;
+  padding: 0 14px;
+  transition: 0.25s;
+}
+
+.bsm-search-btn:hover {
+  background: #535353;
+}
+
+/* Mobile */
+@media (max-width: 992px) {
+  .bsm-link {
+    padding: 1rem !important;
+    text-align: center;
+    border-radius: 12px;
+  }
+  .bsm-search {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+.footer-modern {
   background: #09502C;
+  color: #e5e7eb;
+  font-size: 1rem;
+  /* Bas du footer */
+}
+.footer-modern h4, .footer-modern .h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
   color: #fff;
+}
+.footer-modern .footer-note {
   font-size: 0.9rem;
+  opacity: 0.7;
+  margin-top: 0.5rem;
 }
-.footer a {
+.footer-modern .footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2.5rem;
+  align-items: start;
+}
+.footer-modern .footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-modern .footer-col ul li {
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+.footer-modern .footer-col ul li:first-child {
+  margin-bottom: 10px;
+  color: #facc15;
+}
+.footer-modern .footer-contact {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.footer-modern .footer-contact i {
+  font-size: 1.2rem;
+  margin-right: 10px;
+  color: #facc15;
+}
+.footer-modern .footer-contact a {
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.footer-modern .footer-contact a:hover {
+  color: #facc15;
+}
+.footer-modern .footer-socials a {
+  font-size: 1.8rem;
+  margin-right: 12px;
+  color: #e5e7eb;
+  transition: 0.2s ease;
+}
+.footer-modern .footer-socials a:hover {
+  color: #3b82f6;
+  transform: scale(1.1);
+}
+.footer-modern .footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.footer-modern .footer-bottom .footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.footer-modern .footer-bottom .footer-links a {
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.footer-modern .footer-bottom .footer-links a:hover {
   color: #fff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
-.footer a:hover {
-  color: #ff6900;
+.footer-modern .footer-bottom .copyright {
+  font-size: 0.9rem;
+  opacity: 0.7;
 }
 
+/* Responsive extrême pour smartphones petits (≤ 350px) */
+@media (max-width: 350px) {
+  .footer-modern {
+    font-size: 0.9rem;
+  }
+  .footer-modern .footer-socials a {
+    font-size: 1.5rem;
+  }
+}
 .content {
   padding: 3rem 1.5rem;
   max-width: 1140px;
@@ -12464,7 +12599,9 @@ section .h3 {
     padding: 1.5rem 1.3rem;
   }
 }
+/*------------------------------*/
 /* ===== Galerie premium ===== */
+/*----------------------------*/
 .gallery-page {
   padding-top: 2.5rem;
   padding-bottom: 3rem;
@@ -12518,7 +12655,9 @@ section .h3 {
     height: 200px;
   }
 }
+/*------------------------------*/
 /* ===== Dashboard admin ===== */
+/*----------------------------*/
 .ea-dashboard {
   max-width: 1200px;
   margin: 0 auto;
